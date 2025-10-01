@@ -34,7 +34,7 @@ app.use(cors());
 // Configuration
 // -----------------------------------------------------------------------------
 const PORT = process.env.PORT || 4000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/ticketing';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://aryansingh726781_db_user:JAwzQnSfJ99r8oeg@cluster0.vs3jrul.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/ticketing';
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecret';
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
 const UPLOAD_DIR = process.env.UPLOAD_DIR || 'uploads';
