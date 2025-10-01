@@ -8,24 +8,19 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-// const cors = require('cors');
+const cors = require('cors');
 const nodemailer = require('nodemailer');
 
 const app = express();
 app.use(express.json());
-// app.use(cors({
-
-//   origin: 'https://ticket-sytstem-frontend.vercel.app',
-//  // allow localhost + deployed frontend
-//   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], // include OPTIONS
-//   allowedHeaders: ["Content-Type", "Authorization"], // allow required headers
-//   credentials: true, // allow cookies/auth headers if you use them
-// }));
-
-// // ✅ Ensure Express handles preflight requests
-// app.options("*", cors());
 
 
+app.use(cors({
+  origin: 'https://ticket-sytstem-frontend.vercel.app', // your frontend URL
+  methods: ['GET','POST','PATCH','DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true // if you use cookies or auth headers
+}));
 
 
 // -----------------------------------------------------------------------------
