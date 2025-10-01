@@ -14,7 +14,9 @@ const nodemailer = require('nodemailer');
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: ["http://localhost:3000", "https://ticket-sytstem-frontend.vercel.app"], // allow localhost + deployed frontend
+
+  origin: 'https://ticket-sytstem-frontend.vercel.app',
+ // allow localhost + deployed frontend
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], // include OPTIONS
   allowedHeaders: ["Content-Type", "Authorization"], // allow required headers
   credentials: true, // allow cookies/auth headers if you use them
