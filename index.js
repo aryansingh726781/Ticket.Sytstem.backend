@@ -28,7 +28,13 @@ const nodemailer = require('nodemailer');
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:3000"],  // your React app URL
+  credentials: true, // if you are sending cookies or Authorization headers
+}));
+
+
 
 // -----------------------------------------------------------------------------
 // Configuration
