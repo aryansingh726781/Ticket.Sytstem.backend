@@ -1,18 +1,3 @@
-/**
- * index.js
- * Single-file Node.js + MongoDB backend for a Ticketing System
- *
- * Features:
- * - Authentication (register/login) with JWT
- * - Role-based access control: 'user', 'support', 'admin'
- * - Ticket creation, lifecycle, comments, file attachments
- * - Admin endpoints for user & ticket management
- * - Search & filter, prioritization, rating
- *
- * Notes:
- * - For production move config & secrets to a secure store.
- * - Use HTTPS, helmet, rate limits, stricter validation for production.
- */
 
 require('dotenv').config();
 require('express-async-errors'); // allows throwing errors in async handlers
@@ -29,7 +14,7 @@ const nodemailer = require('nodemailer');
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: ["http://localhost:3000", "https://your-frontend.vercel.app"], // allow localhost + deployed frontend
+  origin: ["http://localhost:3000", "https://ticket-sytstem-frontend.vercel.app"], // allow localhost + deployed frontend
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], // include OPTIONS
   allowedHeaders: ["Content-Type", "Authorization"], // allow required headers
   credentials: true, // allow cookies/auth headers if you use them
@@ -191,32 +176,6 @@ async function sendEmailIfPossible({ to, subject, text, html }) {
 // -----------------------------------------------------------------------------
 // Routes: Auth & Users
 // -----------------------------------------------------------------------------
-// app.post('/api/auth/register', async (req, res) => {
-//   const { name, email, password, role } = req.body;
-//   if (!name || !email || !password) return res.status(400).json({ message: 'name, email, password required' });
-//   const existing = await User.findOne({ email });
-//   if (existing) return res.status(400).json({ message: 'Email already registered' });
-//   const passwordHash = await bcrypt.hash(password, 10);
-//   // only admin can assign admin/support role at registration; otherwise default to 'user'
-//   let assignedRole = 'user';
-//   if (role && ['support','admin'].includes(role)) {
-//     // allow if the request carries a valid admin token (optional)
-//     if (req.headers.authorization) {
-//       try {
-//         const token = req.headers.authorization.split(' ')[1];
-//         const payload = jwt.verify(token, JWT_SECRET);
-//         const actor = await User.findById(payload.id);
-//         if (actor && actor.role === 'admin') assignedRole = role;
-//       } catch (err) {
-//         // ignore - not admin
-//       }
-//     }
-//   }
-//   const user = new User({ name, email, passwordHash, role: assignedRole });
-//   await user.save();
-//   const token = signToken(user);
-//   res.status(201).json({ token, user: { id: user._id, name: user.name, email: user.email, role: user.role } });
-// });
 
 
 app.post('/api/auth/register', async (req, res) => {
