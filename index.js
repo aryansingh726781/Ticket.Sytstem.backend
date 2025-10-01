@@ -28,11 +28,16 @@ const nodemailer = require('nodemailer');
 
 const app = express();
 app.use(express.json());
-// app.use(cors());
 app.use(cors({
-  origin: ["http://localhost:3000"],  // your React app URL
-  credentials: true, // if you are sending cookies or Authorization headers
+  origin: ["http://localhost:3000", "https://your-frontend.vercel.app"], // allow localhost + deployed frontend
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], // include OPTIONS
+  allowedHeaders: ["Content-Type", "Authorization"], // allow required headers
+  credentials: true, // allow cookies/auth headers if you use them
 }));
+
+// ✅ Ensure Express handles preflight requests
+app.options("*", cors());
+
 
 
 
