@@ -16,18 +16,24 @@ app.use(express.json());
 
 
 app.use(cors({
-  origin: 'https://ticket-sytstem-frontend.vercel.app', // your frontend URL
-  methods: ['GET','POST','PATCH','DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true // if you use cookies or auth headers
+  origin: "http://localhost:3000",   // ✅ frontend
+  credentials: true,                 // ✅ required for cookies / auth
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
+app.use(express.json());
 
+// Handle preflight requests
+app.options("*", cors({
+  origin: "http://localhost:3000",
+  credentials: true,
+}));
 // -----------------------------------------------------------------------------
 // Configuration
 // -----------------------------------------------------------------------------
 const PORT = process.env.PORT || 4000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://aryansingh726781_db_user:JAwzQnSfJ99r8oeg@cluster0.vs3jrul.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/ticketing';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://aryansingh726781_db_user:JAwzQnSfJ99r8oeg@cluster0.vs3jrul.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/otherticketing';
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecret';
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
 const UPLOAD_DIR = process.env.UPLOAD_DIR || 'uploads';
