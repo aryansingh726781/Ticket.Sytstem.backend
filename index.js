@@ -16,7 +16,7 @@ app.use(express.json());
 
 
 app.use(cors({
-  origin: "http://localhost:3000",   // ✅ frontend
+  origin: ["http://localhost:3000", "https://your-frontend-domain.com"],   // ✅ frontend
   credentials: true,                 // ✅ required for cookies / auth
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
