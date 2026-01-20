@@ -33,7 +33,7 @@ app.options("*", cors({
 // Configuration
 // -----------------------------------------------------------------------------
 const PORT = process.env.PORT || 4000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://aryansingh726781_db_user:JAwzQnSfJ99r8oeg@cluster0.vs3jrul.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/otherticketing';
+const MONGO_URI = process.env.MONGO_URI ;
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecret';
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
 const UPLOAD_DIR = process.env.UPLOAD_DIR || 'uploads';
@@ -51,20 +51,31 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// optional: nodemailer transporter (if SMTP env provided)
-let transporter = null;
-if (process.env.SMTP_HOST) {
-  transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT) || 587,
-    secure: false,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS
-    }
-  });
-}
+// 
 
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT,
+  secure: false, // use TLS, not SSL (true = port 465, false = port 587)
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+  tls: {
+    rejectUnauthorized: false, // <--- ignore self-signed certs
+  },
+
+
+
+});
+
+// transporter.verify(function (error, success) {
+//   if (error) {
+//     console.error("SMTP error:", error);
+//   } else {
+//     console.log("Server is ready to take messages!");
+//   }
+// });
 // -----------------------------------------------------------------------------
 // Mongoose models
 // -----------------------------------------------------------------------------
